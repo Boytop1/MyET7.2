@@ -1,0 +1,24 @@
+//自动生成文件，请勿在此编辑
+[USING]
+
+namespace ET.Client
+{
+    [UIEvent(UIType.[NAME])]
+    public class [NAME]Event: AUIEvent
+    {
+        public override async ETTask<UI> OnCreate(UIComponent uiComponent, UILayer uiLayer)
+        {
+            await uiComponent.DomainScene().GetComponent<ResourcesLoaderComponent>().LoadAsync(UIType.[NAME].StringToAB());
+            GameObject bundleGameObject = (GameObject) ResourcesComponent.Instance.GetAsset(UIType.[NAME].StringToAB(), UIType.[NAME]);
+            GameObject gameObject = UnityEngine.Object.Instantiate(bundleGameObject, UIEventComponent.Instance.GetLayer((int)uiLayer));
+            UI ui = uiComponent.AddChild<UI, string, GameObject>(UIType.[NAME], gameObject);
+            ui.AddComponent<UILoginComponent>();
+            return ui;
+        }
+
+        public override void OnRemove(UIComponent uiComponent)
+        {
+            ResourcesComponent.Instance.UnloadBundle(UIType.[NAME].StringToAB());
+        }
+    }
+}
